@@ -3,6 +3,7 @@ import urllib.request
 import sys
 import zipfile
 import subprocess
+import window
 
 class adb_download:
 
@@ -31,8 +32,9 @@ class adb_download:
 
 class adb_connection:
 
-    def __init__(self):
-        print(subprocess.call(os.getcwd()+'/adb/platform-tools/adb.exe devices', shell=True))
+    def device_info(self):
+        #print(subprocess.call(os.getcwd()+'/adb/platform-tools/adb.exe devices', shell=True))
+        return subprocess.call(os.getcwd()+'/adb/platform-tools/adb.exe devices', shell=True)
 
 class exit:
 

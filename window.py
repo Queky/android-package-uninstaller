@@ -15,7 +15,8 @@ class MyWindow(QtWidgets.QMainWindow):
         main_program.adb_download()
 
     def con_btn_func(self):
-        main_program.adb_connection()
+        text = main_program.adb_connection().device_info()
+        self.con_output.setPlainText(str(text))
 
     def exit_btn_func(self):
         main_program.exit()
