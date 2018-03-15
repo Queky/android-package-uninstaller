@@ -1,10 +1,12 @@
 import sys
 from PyQt5 import uic, QtWidgets
 import main_program
+import download
+import os
 
-class MyWindow(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        super(MyWindow, self).__init__()
+        super(MainWindow, self).__init__()
         uic.loadUi('main_gui.ui', self)
         self.dwn_btn.clicked.connect(self.dwn_btn_func)
         self.con_btn.clicked.connect(self.con_btn_func)
@@ -12,17 +14,19 @@ class MyWindow(QtWidgets.QMainWindow):
         self.show()
 
     def dwn_btn_func(self):
-        main_program.adb_download()
+        if not os.path.exists('./adb'):
+            download.download_functions().download_files()
 
     def con_btn_func(self):
-        text = main_program.adb_connection().device_info()
-        print(text)
-        self.con_output.setPlainText(str(text))
+        if os.path.exists('./adb'):
+            self.con_output.setPlainText(str('Starting adb server...'))
+            text = main_program.adb_connection().device_info()
+            self.con_output.setPlainText(str(text))
 
     def exit_btn_func(self):
         main_program.exit()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    window = MyWindow()
+    window = MainWindow()
     sys.exit(app.exec_())
