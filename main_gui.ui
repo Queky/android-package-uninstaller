@@ -50,9 +50,9 @@
    <widget class="QTextEdit" name="con_output">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>190</x>
       <y>460</y>
-      <width>104</width>
+      <width>461</width>
       <height>71</height>
      </rect>
     </property>
