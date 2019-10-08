@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import uic, QtWidgets
 import main_program
-import download
+from download import download_functions
 import os
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -15,12 +15,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def dwn_btn_func(self):
         if not os.path.exists('./adb'):
-            download.download_functions().download_files()
+            download_functions().download_files()
 
     def con_btn_func(self):
         if os.path.exists('./adb'):
             self.con_output.setPlainText(str('Starting adb server...'))
-            text = main_program.adb_connection().device_info()
+            text = main_program.adb_connection().device_show_info()
             self.con_output.setPlainText(str(text))
 
     def exit_btn_func(self):
