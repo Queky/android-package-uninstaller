@@ -1,0 +1,9 @@
+certifi==2020.4.5.1
+chardet==3.0.4
+get==2019.4.13
+idna==2.9
+post==2019.4.13
+public==2019.4.13
+query-string==2019.4.13
+requests==2.23.0
+urllib3==1.25.9

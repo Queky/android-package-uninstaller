@@ -4,6 +4,7 @@ import main_program
 from download import download_functions
 import os
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -25,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def exit_btn_func(self):
         main_program.exit()
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

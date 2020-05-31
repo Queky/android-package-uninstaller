@@ -6,6 +6,7 @@ import main_program
 
 platform = ""
 
+
 class download_functions:
 
     def check_internet_con(self):
@@ -14,7 +15,7 @@ class download_functions:
     def download_files(self):
         create_directory(self)
         platform = sys.platform
-        #if can_download:
+        # if can_download:
         if platform == "linux" or platform == "linux2":
             link = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip'
             main_program.platform_info.set_platform(self, "linux")
@@ -28,7 +29,7 @@ class download_functions:
             pass
 
         r = requests.get(link)
-        with open('./adb/' + platform +'.zip', 'wb') as f:
+        with open('./adb/' + platform + '.zip', 'wb') as f:
             f.write(r.content)
         self.file_extract()
 
