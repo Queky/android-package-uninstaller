@@ -1,0 +1,1 @@
+# Acceso a los datos dentro del dispositivo
