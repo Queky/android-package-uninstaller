@@ -7,7 +7,7 @@ from requests import Response, get
 
 
 class AdbDownload:
-    DOWNLOAD_DIRECTORY: Final[str] = './androidpackageuninstaller/infrastructure/adb'
+    DOWNLOAD_DIRECTORY: Final[str] = './adb'
     PLATFORM_TOOLS_DIRECTORY: Final[str] = DOWNLOAD_DIRECTORY + '/platform-tools'
 
     LINUX_DOWNLOAD_URL: Final[str] = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip'

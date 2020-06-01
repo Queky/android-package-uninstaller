@@ -1,3 +1,4 @@
 .idea
 venv
-androidpackageuninstaller/infrastructure/adb/
+adb/
+__pycache__/
