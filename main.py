@@ -5,7 +5,8 @@ from androidpackageuninstaller.infrastructure.port.controller import Controller
 class MainExecution:
 
     def __init__(self):
-        self.prepare_environment()
+        print('main exec')
+        self.get_device_installed_packages()
 
     @staticmethod
     def prepare_environment():

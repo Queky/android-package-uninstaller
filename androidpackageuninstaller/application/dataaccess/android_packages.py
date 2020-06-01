@@ -1,7 +1,16 @@
-from ...infrastructure.adapter.terminal_android_packages import TerminalServiceAccess
+from abc import ABCMeta, abstractmethod
 
 
-class AndroidServices(TerminalServiceAccess):
+class AndroidPackages(metaclass=ABCMeta):
 
-    def __init__(self):
+    @abstractmethod
+    def get_service_information(self):
+        pass
+
+    @abstractmethod
+    def get_services_list(self):
+        pass
+
+    @abstractmethod
+    def uninstall_service(self):
         pass
