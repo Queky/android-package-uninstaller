@@ -4,13 +4,13 @@ from abc import ABCMeta, abstractmethod
 class AndroidPackages(metaclass=ABCMeta):
 
     @abstractmethod
-    def get_service_information(self):
+    def get_package_information(self):
         pass
 
     @abstractmethod
-    def get_services_list(self):
+    def get_package_list(self):
         pass
 
     @abstractmethod
-    def uninstall_service(self):
+    def uninstall_package(self):
         pass

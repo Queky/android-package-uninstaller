@@ -2,10 +2,10 @@ from androidpackageuninstaller.application.usecase.getpackageinformation.get_pac
     import GetServiceInformation
 from androidpackageuninstaller.application.usecase.getpackageinformation.get_package_information_command \
     import GetServiceInformationCommand
-from androidpackageuninstaller.application.usecase.getservicelist.get_package_list import GetServiceList
-from androidpackageuninstaller.application.usecase.getservicelist.get_package_list_command import GetServiceListCommand
-from androidpackageuninstaller.application.usecase.uninstallservice.uninstall_package import UninstallService
-from androidpackageuninstaller.application.usecase.uninstallservice.uninstall_package_command \
+from androidpackageuninstaller.application.usecase.getpackagelist.get_package_list import GetServiceList
+from androidpackageuninstaller.application.usecase.getpackagelist.get_package_list_command import GetServiceListCommand
+from androidpackageuninstaller.application.usecase.uninstallpackage.uninstall_package import UninstallService
+from androidpackageuninstaller.application.usecase.uninstallpackage.uninstall_package_command \
     import UninstallServiceCommand
 
 

@@ -1,6 +1,6 @@
 from .get_package_list_command import GetServiceListCommand
 from androidpackageuninstaller.application.dataaccess.android_packages import AndroidPackages
-from androidpackageuninstaller.infrastructure.adapter.terminal_android_packages import TerminalServiceAccess
+from androidpackageuninstaller.infrastructure.adapter.terminal.terminal_android_packages import TerminalServiceAccess
 from typing import Final
 
 
@@ -13,4 +13,4 @@ class GetServiceList:
 
     def execute(self, command: GetServiceListCommand = None):
         print('use-case')
-        self.androidServices.get_services_list()
+        self.androidServices.get_package_list()
