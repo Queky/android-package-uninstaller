@@ -1,26 +1,43 @@
-import subprocess
+import sys
 from abc import ABC
-from typing import Final
+from typing import Final, List
 from androidpackageuninstaller.application.dataaccess.android_packages import AndroidPackages
-import os
+from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.adb_accessor import AdbAccessor
+from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.environment.darwin_adb_accessor \
+    import DarwinAdbAccessor
+from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.environment.linux_adb_accessor \
+    import LinuxAdbAccessor
+from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.environment.windows_adb_accessor \
+    import WindowsAdbAccessor
+from androidpackageuninstaller.domain.android_package import AndroidPackage
 
 
-class TerminalServiceAccess(AndroidPackages, ABC):
+class TerminalPackageAccess(AndroidPackages, ABC):
 
-    # FOR LINUX
-    ADB_DIRECTORY = "./adb/platform-tools/"
-    LIST_ALL_PACKAGES: Final[str] = "adb shell \"pm list packages -f\""
-    UNINSTALL_PACKAGE: str = "adb shell pm uninstall --user 0 com.android.chrome"
+    adb_accessor: Final[AdbAccessor]
+
+    def __init__(self):
+        environment: str = sys.platform
+        if environment == "linux" or environment == "linux2":
+            self.adb_accessor = LinuxAdbAccessor()
+        elif environment == "darwin":
+            self.adb_accessor = DarwinAdbAccessor()
+        elif environment == "win32":
+            self.adb_accessor = WindowsAdbAccessor()
+        else:
+            raise ValueError('Provided environment doesnt have any download URL.')
 
     def get_package_information(self):
         pass
 
     def get_package_list(self):
-        print('implementation')
-        ex_ = self.ADB_DIRECTORY + self.LIST_ALL_PACKAGES
-        print(ex_)
-        print(subprocess.check_output(ex_).decode('utf-8').split('package:')[1].replace('\\r\\n', '').split('='))
+        android_package_list: List[AndroidPackage] = []
+        packages: List[str] = self.adb_accessor.get_package_list()
+        for index, value in enumerate(packages):
+            if packages[index]:
+                package_directory: str = value.split('=')[0].rstrip()
+                package_name: str = value.split('=')[1].rstrip()
+                android_package_list.append(AndroidPackage(package_directory, package_name))
 
     def uninstall_package(self):
-        ex_ = self.ADB_DIRECTORY + self.UNINSTALL_PACKAGE
-        print(subprocess.check_output(ex_))
+        self.adb_accessor.uninstall_package()

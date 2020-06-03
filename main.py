@@ -14,7 +14,7 @@ class MainExecution:
 
     @staticmethod
     def get_device_installed_packages():
-        Controller().get_service_list()
+        Controller().get_package_list()
 
 
 if __name__ == '__main__':
