@@ -12,5 +12,5 @@ class AndroidPackages(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def uninstall_package(self):
+    def uninstall_package(self, package_name: str):
         pass

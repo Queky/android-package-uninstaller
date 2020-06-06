@@ -10,24 +10,23 @@ from androidpackageuninstaller.application.usecase.uninstallpackage.uninstall_pa
 
 class Controller:
 
-    def get_package_information(self=None):
+    def get_package_information(self):
         service_info = GetPackageInformation()
         service_info.execute(self.__build_get_package_information_command())
 
     @staticmethod
     def get_package_list():
-        print('controller')
         service_list = GetPackageList()
-        service_list.execute()
+        return service_list.execute()
 
-    def uninstall_package(self=None):
+    def uninstall_package(self, package_name: str):
         uninstall_service = UninstallPackage()
-        uninstall_service.execute(self.__build_uninstall_service_command())
+        uninstall_service.execute(self.__build_uninstall_package_command(package_name))
 
     @staticmethod
     def __build_get_package_information_command(package_name: str) -> GetServiceInformationCommand:
         return GetServiceInformationCommand(package_name)
 
     @staticmethod
-    def __build_uninstall_service_command() -> UninstallServiceCommand:
-        return UninstallServiceCommand()
+    def __build_uninstall_package_command(package_name: str) -> UninstallServiceCommand:
+        return UninstallServiceCommand(package_name)

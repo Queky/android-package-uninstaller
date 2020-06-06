@@ -36,8 +36,12 @@ class TerminalPackageAccess(AndroidPackages, ABC):
         for index, value in enumerate(packages):
             if packages[index]:
                 package_directory: str = value.split('=')[0].rstrip()
-                package_name: str = value.split('=')[1].rstrip()
-                android_package_list.append(AndroidPackage(package_directory, package_name))
+                package_name: str = value.split('=')[len(value.split('='))-1].rstrip()
+                package_apk = ''
+                if any('.apk' in apk_name for apk_name in value.split('=')):
+                    package_apk = value.split('=')[0].split('/')[len(value.split('=')[0].split('/'))-1]
+                android_package_list.append(AndroidPackage(package_directory, package_name, package_apk))
+        return android_package_list
 
-    def uninstall_package(self):
-        self.adb_accessor.uninstall_package()
+    def uninstall_package(self, package_name: str):
+        self.adb_accessor.uninstall_package(package_name)

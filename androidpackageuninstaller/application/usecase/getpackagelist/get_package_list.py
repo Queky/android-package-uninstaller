@@ -5,11 +5,10 @@ from typing import Final
 
 class GetPackageList:
 
-    androidServices: Final[AndroidPackages]
+    android_services: Final[AndroidPackages]
 
     def __init__(self):
-        self.androidServices = TerminalPackageAccess()
+        self.android_services = TerminalPackageAccess()
 
     def execute(self):
-        print('use-case')
-        self.androidServices.get_package_list()
+        return self.android_services.get_package_list()
