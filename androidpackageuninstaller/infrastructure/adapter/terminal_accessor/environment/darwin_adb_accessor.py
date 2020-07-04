@@ -6,16 +6,18 @@ from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.adb_acce
 
 
 class DarwinAdbAccessor(AdbAccessor, ABC):
-    ADB_DIRECTORY: Final[str] = ""
-    UNINSTALL_PACKAGE: Final[str] = ""
-    LIST_ALL_PACKAGES: Final[str] = ""
+
+    ADB_DIRECTORY: Final[str] = "./adb/platform-tools/"
+    UNINSTALL_PACKAGE: Final[str] = "adb shell pm uninstall --user 0 "
+    LIST_ALL_PACKAGES: Final[str] = "adb shell pm list packages -f"
 
     def get_package_information(self, package_name: str):
         pass
 
     def get_package_list(self) -> List[str]:
         shell_command: str = self.ADB_DIRECTORY + self.LIST_ALL_PACKAGES
-        output: List[str] = subprocess.check_output(shell_command).decode('utf-8').split('package:')
+        output: List[str] = subprocess.check_output(shell_command, shell=True).decode('utf-8').split('package:')
+        print(subprocess.check_output(shell_command, shell=True).decode('utf-8'))
         return output
 
     def uninstall_package(self, package_name: str):
