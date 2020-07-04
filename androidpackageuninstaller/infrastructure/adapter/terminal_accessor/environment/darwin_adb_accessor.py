@@ -17,7 +17,6 @@ class DarwinAdbAccessor(AdbAccessor, ABC):
     def get_package_list(self) -> List[str]:
         shell_command: str = self.ADB_DIRECTORY + self.LIST_ALL_PACKAGES
         output: List[str] = subprocess.check_output(shell_command, shell=True).decode('utf-8').split('package:')
-        print(subprocess.check_output(shell_command, shell=True).decode('utf-8'))
         return output
 
     def uninstall_package(self, package_name: str):
