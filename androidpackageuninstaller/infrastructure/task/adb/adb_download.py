@@ -32,6 +32,7 @@ class AdbDownload:
         self.__save_downloaded_content(response, file_name)
 
     def __get_download_url(self, environment: str) -> str:
+        # Obtenemos la URL de descarga dependiendo del entorno
         if environment == "linux" or environment == "linux2":
             return self.LINUX_DOWNLOAD_URL
         elif environment == "darwin":
@@ -51,6 +52,7 @@ class AdbDownload:
 
     @staticmethod
     def __unzip_downloaded_file(file_name: str, extract_directory: str):
+        # Descomprimimos el archivo descargado
         file = ZipFile(file_name)
         file.extractall(extract_directory)
         file.close()
@@ -61,10 +63,12 @@ class AdbDownload:
 
     @staticmethod
     def __create_download_directory(directory: str):
+        # Creamos la carpeta donde descargar los archivos
         os.makedirs(directory)
 
     @staticmethod
     def __remove_downloaded_file(file_directory: str):
+        # Eliminamos el archivo descargado
         os.remove(file_directory)
 
     @staticmethod

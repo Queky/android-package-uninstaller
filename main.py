@@ -10,10 +10,12 @@ class MainExecution:
 
     @staticmethod
     def __prepare_environment():
+        # Preparamos el entorno ejecutando la tarea de descarga de ADB
         AdbDownload().download_and_extract_adb()
 
     @staticmethod
     def __run_view():
+        # Creamos la ventana principal y la mostramos
         app = View()
         app.mainloop()
 
