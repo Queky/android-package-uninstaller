@@ -7,6 +7,7 @@ from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.adb_acce
 
 class DarwinAdbAccessor(AdbAccessor, ABC):
 
+    # Darwin
     ADB_DIRECTORY: Final[str] = "./adb/platform-tools/"
     UNINSTALL_PACKAGE: Final[str] = "adb shell pm uninstall --user 0 "
     LIST_ALL_PACKAGES: Final[str] = "adb shell pm list packages -f"
