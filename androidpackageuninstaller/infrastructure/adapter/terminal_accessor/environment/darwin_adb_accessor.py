@@ -22,5 +22,5 @@ class DarwinAdbAccessor(AdbAccessor, ABC):
 
     def uninstall_package(self, package_name: str):
         shell_command = self.ADB_DIRECTORY + str(self.UNINSTALL_PACKAGE) + str(package_name)
-        output: str = subprocess.check_output(shell_command).decode('utf-8')
+        output: str = subprocess.check_output(shell_command, shell=True).decode('utf-8')
         return output
