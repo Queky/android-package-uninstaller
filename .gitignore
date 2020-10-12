@@ -5,3 +5,4 @@ __pycache__/
 androidpackageuninstaller.egg-info
 build
 dist
+*.spec
