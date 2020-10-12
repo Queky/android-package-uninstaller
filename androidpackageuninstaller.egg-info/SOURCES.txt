@@ -1,6 +1,0 @@
-README.md
-setup.py
-androidpackageuninstaller.egg-info/PKG-INFO
-androidpackageuninstaller.egg-info/SOURCES.txt
-androidpackageuninstaller.egg-info/dependency_links.txt
-androidpackageuninstaller.egg-info/top_level.txt

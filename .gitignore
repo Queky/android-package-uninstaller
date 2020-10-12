@@ -2,3 +2,4 @@
 venv
 adb/
 __pycache__/
+androidpackageuninstaller.egg-info
