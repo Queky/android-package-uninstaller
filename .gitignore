@@ -3,3 +3,6 @@ venv
 adb/
 __pycache__/
 androidpackageuninstaller.egg-info
+build
+dist
+*.spec

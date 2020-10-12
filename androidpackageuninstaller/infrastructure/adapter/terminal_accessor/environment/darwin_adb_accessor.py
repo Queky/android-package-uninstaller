@@ -1,3 +1,5 @@
+import os
+import sys
 import subprocess
 from abc import ABC
 from typing import Final, List
@@ -8,7 +10,8 @@ from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.adb_acce
 class DarwinAdbAccessor(AdbAccessor, ABC):
 
     # Darwin
-    ADB_DIRECTORY: Final[str] = "./adb/platform-tools/"
+    CURRENT_DIR = os.path.realpath(sys.argv[0]).split('/main')[0]
+    ADB_DIRECTORY: Final[str] = CURRENT_DIR + "/adb/platform-tools/"
     UNINSTALL_PACKAGE: Final[str] = "adb shell pm uninstall --user 0 "
     LIST_ALL_PACKAGES: Final[str] = "adb shell pm list packages -f"
 

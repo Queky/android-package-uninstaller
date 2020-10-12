@@ -1,13 +1,16 @@
 import os
 import sys
 import shutil
+import subprocess
 from typing import Final
 from zipfile import ZipFile
 from requests import Response, get
 
 
 class AdbDownload:
-    DOWNLOAD_DIRECTORY: Final[str] = './adb'
+
+    CURRENT_DIR = os.path.realpath(sys.argv[0]).split('/main')[0]
+    DOWNLOAD_DIRECTORY: Final[str] = CURRENT_DIR + '/adb'
     PLATFORM_TOOLS_DIRECTORY: Final[str] = DOWNLOAD_DIRECTORY + '/platform-tools'
 
     LINUX_DOWNLOAD_URL: Final[str] = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip'
@@ -16,12 +19,14 @@ class AdbDownload:
 
     def download_and_extract_adb(self):
         try:
+            print(self.DOWNLOAD_DIRECTORY)
             if not self.has_platform_tools_downloaded():
+                print(self.DOWNLOAD_DIRECTORY)
                 self.__create_download_directory(self.DOWNLOAD_DIRECTORY)
                 environment = self.__get_environment()
                 file_name = self.DOWNLOAD_DIRECTORY + '/' + environment + '.zip'
                 self.__download_file(self.__get_download_url(environment), file_name)
-                self.__unzip_downloaded_file(file_name, self.DOWNLOAD_DIRECTORY)
+                self.__unzip_downloaded_file(self, file_name, self.DOWNLOAD_DIRECTORY)
                 self.__remove_downloaded_file(file_name)
         except FileExistsError:
             self.__remove_download_directory(self.DOWNLOAD_DIRECTORY)
@@ -51,11 +56,12 @@ class AdbDownload:
             file.write(response.content)
 
     @staticmethod
-    def __unzip_downloaded_file(file_name: str, extract_directory: str):
+    def __unzip_downloaded_file(self, file_name: str, extract_directory: str):
         # Descomprimimos el archivo descargado
         file = ZipFile(file_name)
         file.extractall(extract_directory)
         file.close()
+        subprocess.call(['chmod', '-R', '0777', self.DOWNLOAD_DIRECTORY])
 
     @staticmethod
     def __get_environment() -> str:

@@ -8,7 +8,7 @@ class WindowsAdbAccessor(AdbAccessor, ABC):
 
     # Windows
     ADB_DIRECTORY: Final[str] = ".\\adb\\platform-tools\\"
-    UNINSTALL_PACKAGE: Final[str] = "adb shell pm uninstall --user 0 "
+    UNINSTALL_PACKAGE: Final[str] = "adb.exe shell pm uninstall --user 0 "
     LIST_ALL_PACKAGES: Final[str] = "adb.exe shell pm list packages -f"
 
     def get_package_information(self, package_name: str):
