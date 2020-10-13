@@ -9,9 +9,9 @@ from requests import Response, get
 
 class AdbDownload:
 
-    CURRENT_DIR = os.path.realpath(sys.argv[0]).split('/main')[0]
-    DOWNLOAD_DIRECTORY: Final[str] = CURRENT_DIR + '/adb'
+    DOWNLOAD_DIRECTORY: Final[str] = os.getcwd() + '/adb'
     PLATFORM_TOOLS_DIRECTORY: Final[str] = DOWNLOAD_DIRECTORY + '/platform-tools'
+    MODIFY_OWNER: bool = False
 
     LINUX_DOWNLOAD_URL: Final[str] = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip'
     DARWIN_DOWNLOAD_URL: Final[str] = 'https://dl.google.com/android/repository/platform-tools-latest-darwin.zip'
@@ -19,14 +19,13 @@ class AdbDownload:
 
     def download_and_extract_adb(self):
         try:
-            print(self.DOWNLOAD_DIRECTORY)
             if not self.has_platform_tools_downloaded():
-                print(self.DOWNLOAD_DIRECTORY)
                 self.__create_download_directory(self.DOWNLOAD_DIRECTORY)
                 environment = self.__get_environment()
                 file_name = self.DOWNLOAD_DIRECTORY + '/' + environment + '.zip'
                 self.__download_file(self.__get_download_url(environment), file_name)
                 self.__unzip_downloaded_file(self, file_name, self.DOWNLOAD_DIRECTORY)
+                self.__modify_owner()
                 self.__remove_downloaded_file(file_name)
         except FileExistsError:
             self.__remove_download_directory(self.DOWNLOAD_DIRECTORY)
@@ -39,8 +38,10 @@ class AdbDownload:
     def __get_download_url(self, environment: str) -> str:
         # Obtenemos la URL de descarga dependiendo del entorno
         if environment == "linux" or environment == "linux2":
+            self.MODIFY_OWNER = True
             return self.LINUX_DOWNLOAD_URL
         elif environment == "darwin":
+            self.MODIFY_OWNER = True
             return self.DARWIN_DOWNLOAD_URL
         elif environment == "win32":
             return self.WINDOWS_DOWNLOAD_URL
@@ -61,7 +62,6 @@ class AdbDownload:
         file = ZipFile(file_name)
         file.extractall(extract_directory)
         file.close()
-        subprocess.call(['chmod', '-R', '0777', self.DOWNLOAD_DIRECTORY])
 
     @staticmethod
     def __get_environment() -> str:
@@ -80,3 +80,8 @@ class AdbDownload:
     @staticmethod
     def __remove_download_directory(directory: str):
         shutil.rmtree(directory)
+
+    def __modify_owner(self):
+        if self.MODIFY_OWNER:
+            subprocess.call(['chmod', '-R', '0777', self.DOWNLOAD_DIRECTORY])
+
