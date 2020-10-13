@@ -1,3 +1,4 @@
+import os
 import subprocess
 from abc import ABC
 from typing import Final, List
@@ -7,7 +8,7 @@ from androidpackageuninstaller.infrastructure.adapter.terminal_accessor.adb_acce
 class WindowsAdbAccessor(AdbAccessor, ABC):
 
     # Windows
-    ADB_DIRECTORY: Final[str] = ".\\adb\\platform-tools\\"
+    ADB_DIRECTORY: Final[str] = os.getcwd() + "\\adb\\platform-tools\\"
     UNINSTALL_PACKAGE: Final[str] = "adb.exe shell pm uninstall --user 0 "
     LIST_ALL_PACKAGES: Final[str] = "adb.exe shell pm list packages -f"
 
