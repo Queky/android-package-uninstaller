@@ -4,4 +4,4 @@ idna==2.9
 public==2019.4.13
 query-string==2019.4.13
 requests==2.23.0
-urllib3==1.25.9
+urllib3==1.26.5
